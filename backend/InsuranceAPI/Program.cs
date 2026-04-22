@@ -1,21 +1,27 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using InsuranceAPI;
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args);  //
 
-var app = builder.Build();
+builder.Services.AddControllers(); // Add services to the container.
+builder.Services.AddEndpointsApiExplorer(); // Add services for API documentation.
+builder.Services.AddSwaggerGen(); // Add services for Swagger UI.   
 
-if (app.Environment.IsDevelopment())
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
+
+var app = builder.Build(); // Build the application.
+
+if (app.Environment.IsDevelopment())  // Check if the application is running in the development environment.
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); // Enable middleware to serve generated Swagger as a JSON endpoint.
+    app.UseSwaggerUI(); // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // Enable middleware to redirect HTTP requests to HTTPS.
 
-app.UseAuthorization();
+app.UseAuthorization(); // Enable middleware to authorize users. This should be placed between UseAuthentication and UseEndpoints.
 
-app.MapControllers();
+app.MapControllers();  // Map controller routes. This will route incoming HTTP requests to the appropriate controller actions based on the defined routes.
 
-app.Run();
+app.Run(); // Run the application.
