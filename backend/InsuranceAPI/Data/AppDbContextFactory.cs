@@ -13,7 +13,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         var connectionString = Environment.GetEnvironmentVariable("DEV_DEFAULT_CONNECTION");
         if (string.IsNullOrWhiteSpace(connectionString))
         {
-            connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=InsuranceDb;Trusted_Connection=True;";
+            connectionString = "Server=ANUSHRI\\SQLEXPRESS;Database=InsuranceDb;Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
