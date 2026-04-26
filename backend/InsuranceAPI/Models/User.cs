@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 public class User
 {
-	 [Key] // Primary Key
+    [Key]
     public int Id { get; set; }
 
-    [Required] // cannot be null
-    [MaxLength(100)]
+    [Required, MaxLength(100)]
     public string Name { get; set; }
 
-    [Required]
-    [EmailAddress] // validates email format
+    [Required, EmailAddress]
     public string Email { get; set; }
 
     [Required]
@@ -21,8 +19,39 @@ public class User
     [Required]
     public UserRole Role { get; set; }
 
-	public User()
-	{
-	
-	}
+    [Required, Phone]
+    public string PhoneNumber { get; set; }
+
+    [Required]
+    public DateTime DateOfBirth { get; set; }
+
+    [Required]
+    public Gender Gender { get; set; }
+
+    public string AddressLine1 { get; set; }
+
+    [Required]
+    public string City { get; set; }
+
+    [Required]
+    public string State { get; set; }
+
+    [Required]
+    public string Pincode { get; set; }
+
+    [Required]
+    public string Country { get; set; }
+
+    [StringLength(12)]
+    public string AadhaarNumber { get; set; }
+
+    [StringLength(10)]
+    public string PANNumber { get; set; }
+
+    public bool IsActive { get; set; } = true;
+    public bool IsEmailVerified { get; set; } = false;
+
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? UpdatedAt { get; set; }
+
 }
